@@ -79,3 +79,14 @@ class ProductReview(models.Model):
     def __str__(self):
         return self.name
 
+
+class Cart(models.Model):
+    username=models.CharField(max_length=300)
+    slug = models.CharField(max_length=500)
+    items=models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity=models.IntegerField()
+    total=models.IntegerField()
+    date=models.DateTimeField(auto_created=True)
+
+    def __str__(self):
+        return self.username
