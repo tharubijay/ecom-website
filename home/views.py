@@ -101,3 +101,61 @@ def signup(request):
 
     return render(request, 'signup.html')
 
+
+def cart(request,slug):
+    if Product.objects.filter(slug=slug).exists():
+        username = request.user.username
+        if Cart.objects.filter(slug = slug,username = username).exists():
+            quantity = Cart.objects.get(slug = slug).quantity
+            price = Cart.objects.get(slug = slug).price
+            discounted_price = Cart.objects.get(slug=slug).discounted_price
+            quantity = quantity +1
+            if discounted_price > 0:
+                total = discounted_price*quantity
+            else:
+                total = price*quantity
+            Cart.objects.get(slug=slug,username = username).update(quantity = quantity,total = total)
+            return redirect('/')
+        else:
+            price = Cart.objects.get(slug=slug).price
+            discounted_price = Cart.objects.get(slug=slug).discounted_price
+            if discounted_price > 0:
+                total = discounted_price
+            else:
+                total = price
+            data = Cart.objects.create(
+                username = username,
+                quantity = 1,
+                total = total,
+                slug = slug,
+                items = Product.objects.get(slug=slug)
+            )
+            data.save()
+            return redirect('/')
+
+def delete_cart(request,slug):
+    username = request.user.username
+    if Cart.objects.filter(slug=slug, username=username).exists():
+        Cart.objects.filter(slug=slug, username=username).delete()
+        return redirect('/')
+
+def reduce_quantity(request,slug):
+    if Product.objects.filter(slug=slug).exists():
+        username = request.user.username
+        if Cart.objects.filter(slug = slug,username = username).exists():
+            quantity = Cart.objects.get(slug = slug).quantity
+            price = Cart.objects.get(slug = slug).price
+            discounted_price = Cart.objects.get(slug=slug).discounted_price
+            if quantity > 1:
+                quantity = quantity - 1
+                if discounted_price > 0:
+                    total = discounted_price*quantity
+                else:
+                    total = price*quantity
+                Cart.objects.get(slug=slug,username = username).update(quantity = quantity,total = total)
+                return redirect('/')
+            else:
+                messages.error(request, 'The quantity of the product is already 1.')
+                return redirect('/')
+
+
