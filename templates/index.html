@@ -235,7 +235,7 @@
                                     <img src="{{hot.image.url}}" style = "height:300px; width: 300ox;" alt="Product Image">
                                 </a>
                                 <div class="product-action">
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                    <a href="/add_cart/{{hot.slug}}"><i class="fa fa-cart-plus"></i></a>
                                     <a href="#"><i class="fa fa-heart"></i></a>
                                     <a href="#"><i class="fa fa-search"></i></a>
                                 </div>
@@ -247,7 +247,7 @@
                                     {{hot.price}}
                                     {% endif %}
                                 </h3>
-                               <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                                <a class="btn" href="/add_cart/{{hot.slug}}"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
                             </div>
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                             <img src="{{new.image.url}}" style="height:300px; width: 300ox;" alt="Product Image">
                         </a>
                         <div class="product-action">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="/add_cart/{{new.slug}}"><i class="fa fa-cart-plus"></i></a>
                             <a href="#"><i class="fa fa-heart"></i></a>
                             <a href="#"><i class="fa fa-search"></i></a>
                         </div>
@@ -315,7 +315,7 @@
                         </h3>
                        
                    
-                        <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
+                        <a class="btn" href="/add_cart/{{new.slug}}"><i class="fa fa-shopping-cart"></i>Add To Cart</a>
                     </div>
                 </div>
             </div>
@@ -335,7 +335,7 @@
                 <div class="col-md-6">
                     <div class="review-slider-item">
                         <div class="review-img">
-                            <img src="{{re.image.url}}" alt="Image">
+                            <img src="{{re.image.url}}" style="height:300px; width: 300ox;"alt="Image">
                         </div>
                         <div class="review-text">
                             <h2>{{re.name}}</h2>
@@ -360,3 +360,6 @@
     <!-- Review End -->      
    
         {% endblock %}
+
+
+
